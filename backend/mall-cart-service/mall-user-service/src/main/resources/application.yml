@@ -1,0 +1,59 @@
+server:
+  port: 9000
+
+spring:
+  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mall_user?useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 你的MySQL密码
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  application:
+    name: mall-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: product-service
+          uri: lb://mall-product-service
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - StripPrefix=1
+        - id: cart-service
+          uri: lb://mall-cart-service
+          predicates:
+            - Path=/api/cart/**
+          filters:
+            - StripPrefix=1
+        - id: order-service
+          uri: lb://mall-order-service
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - StripPrefix=1
+knife4j:
+  enable: true
+  setting:
+    enableSwaggerModels: true
+    enableDocumentManage: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug

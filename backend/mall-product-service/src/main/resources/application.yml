@@ -1,0 +1,64 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: mall-product-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mall_product?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    username: root
+    password: root
+    hikari: # ← 新增：数据库连接池优化
+      maximum-pool-size: 50           # 最大连接数（默认10）
+      minimum-idle: 10                # 最小空闲连接
+      connection-timeout: 30000       # 获取连接超时(ms)
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+knife4j:
+  enable: true
+  setting:
+    enableSwaggerModels: true
+    enableDocumentManage: true
+
+logging:
+  level:
+    com.mall: debug
+
+# Seata 配置
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: mall_tx_group
+  enable-auto-data-source-proxy: true
+  config:
+    type: nacos
+    nacos:
+      server-addr: localhost:8848
+      group: SEATA_GROUP
+      namespace: ""
+      data-id: seataServer.properties
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: localhost:8848
+      group: SEATA_GROUP
+      namespace: ""

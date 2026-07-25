@@ -1,0 +1,62 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: mall-cart-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mall_cart?useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    hikari: # ← 新增：数据库连接池优化
+      maximum-pool-size: 50           # 最大连接数（默认10）
+      minimum-idle: 10                # 最小空闲连接
+      connection-timeout: 30000       # 获取连接超时(ms)
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 添加 Feign 超时配置
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+knife4j:
+  enable: true
+  setting:
+    enableSwaggerModels: true
+    enableDocumentManage: true
+# Seata 配置
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: mall_tx_group
+  enable-auto-data-source-proxy: true
+  config:
+    type: nacos
+    nacos:
+      server-addr: localhost:8848
+      group: SEATA_GROUP
+      namespace: ""
+      data-id: seataServer.properties
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: localhost:8848
+      group: SEATA_GROUP
+      namespace: ""
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 60000
