@@ -257,66 +257,32 @@ http://localhost:9001/doc.html
 📊 性能测试
 使用 JMeter 5.5 进行 100 并发压测，总请求数 5000：
 
-接口	样本数	平均响应	吞吐量	错误率
-商品列表	1000	8ms	50.6/sec	0%
-实时库存	1000	6ms	50.6/sec	0%
-添加购物车	1000	13ms	50.5/sec	0%
-购物车详情	1000	6ms	50.6/sec	0%
-创建订单	1000	42ms	50.4/sec	0%
-总体	5000	15ms	237.2/sec	0%
+接口	    样本数	  平均响应	   吞吐量	    错误率
+商品列表	  1000	  8ms	       50.6/sec	  0%
+实时库存	  1000	  6ms	       50.6/sec	  0%
+添加购物车	1000	  13ms	     50.5/sec	  0%
+购物车详情	1000	  6ms	       50.6/sec	  0%
+创建订单	  1000	  42ms	     50.4/sec	  0%
+总体	    5000	  15ms	     237.2/sec	0%
 ✨ 项目亮点
 微服务架构：4 个独立服务 + 网关 + Nacos 注册中心，每个服务独立数据库，真正实现数据隔离
-
 分布式事务：集成 Seata 1.4.2，使用 @GlobalTransactional 保证跨服务事务一致性
-
 防超卖机制：数据库行锁 WHERE stock >= quantity + @Transactional，100 并发下零超卖
-
 高并发优化：Redis 缓存库存数据，读操作响应仅 6-8ms
-
 性能达标：100 并发压测，吞吐量 237 TPS，错误率 0%
-
 前后端分离：Vue3 + Element Plus，包含用户端和管理端
-
 完整测试：功能测试（10+ 用例）、接口测试、性能压测全覆盖
 
 📸 界面展示
 用户端
 商品列表（搜索、排序、实时库存）
-
 购物车（数量修改、金额实时计算）
-
 订单管理（Tab 筛选、取消/收货）
-
 管理端
 数据看板（动态数字、趋势图、分类占比）
-
 商品管理（增删改查）
-
 订单管理
-
 📄 相关文档
 项目设计文档
-
 🤝 贡献指南
 本项目为课程设计/毕业设计项目，欢迎 Star 和 Fork。
-
-📝 License
-MIT License
-
-Copyright (c) 2026 xiaoha-yg
-
-text
-
----
-
-## 如何使用
-
-1. 在 `C:\Users\小哈\Desktop\online-mall-full` 目录下创建 `README.md` 文件
-2. 粘贴以上内容
-3. 上传到 GitHub：
-
-```bash
-cd C:\Users\小哈\Desktop\online-mall-full
-git add README.md
-git commit -m "添加 README.md"
-git push。整理成一份独立可以直接复制粘贴到git
