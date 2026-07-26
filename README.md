@@ -124,27 +124,48 @@ text
 ## 📁 项目结构
 online-mall/
 ├── backend/ # 后端微服务
+
 │ ├── mall-common/ # 公共模块（实体类、DTO、配置）
+
 │ ├── mall-product-service/ # 商品服务 :9001
+
 │ ├── mall-cart-service/ # 购物车服务 :9002
+
 │ ├── mall-order-service/ # 订单服务 :9003
+
 │ ├── mall-user-service/ # 用户服务 :9004
+
 │ ├── mall-gateway/ # 网关服务 :9000
+
 │ └── pom.xml # 父 POM
+
 ├── frontend/ # 前端项目
 │ ├── src/
+
 │ │ ├── api/ # 接口封装
+
 │ │ ├── views/ # 页面组件
+
 │ │ │ ├── admin/ # 管理后台
+
 │ │ │ └── layout/ # 布局组件
+
 │ │ ├── router/ # 路由配置
+
 │ │ ├── store/ # 状态管理
+
 │ │ └── utils/ # 工具函数
+
 │ ├── public/images/ # 商品图片
+
 │ ├── package.json
+
 │ └── vite.config.js
+
 ├── docs/ # 项目文档
+
 │ └── 在线商城系统的架构设计与开发.docx
+
 └── README.md
 
 text
